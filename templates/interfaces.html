@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interfaces - My Firewall</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>my_firewall &gt; Interfaces</h1>
+    
+    <a href="/">← Retour à l'accueil</a>
+    <br><br>
+    
+    <h2>Interfaces</h2>
+    
+    <!-- Table des interfaces -->
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Nom</th>
+            <th>IP</th>
+            <th>Status</th>
+            <th>To_wan</th>
+        </tr>
+        {% for iface in interfaces %}
+        <tr>
+            <td>{{ iface.name }}</td>
+            <td>{{ iface.ip_address or '-' }}</td>
+            <td>{{ iface.status }}</td>
+            <td>{{ iface.to_wan }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" align="center">Aucune interface configurée</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter accès interne</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Ajouter un accès pour accèder au routeur</h2>
+    <form action="/add_rule_to_intern" method="POST">
+        <label>IP source : 
+            <input type="text" name="ip" pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}?(/[0-9]{1-2})$" title="Format IP valide comme 127.0.0.1 ou 192.168.1.1">
+        </label>
+        <br><br>
+        
+        <label>Protocole : 
+            <select name="protocol" required>
+                <option value="">Sélectionner un protocole</option>
+                <option value="tcp">TCP</option>
+                <option value="udp">UDP</option>
+            </select>
+        </label>
+        <br><br>
+        
+        <label>Ports : 
+            <input type="number" name="port" required min="1" max="65535" title="Port valide : 1 à 65535">
+        </label>
+        <br><br>
+        
+        <button type="submit">Ajouter</button>
+        <button type="button" onclick="window.close()">Fermer</button>
+    </form>
+</body>
+</html>

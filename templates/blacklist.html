@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blacklist</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>my_firewall &gt; Blacklist</h1>
+    
+    <a href="/">← Retour à l'accueil</a>
+    <br><br>
+    
+    <h2>Cette page declare des IP bloquées en Prerouting</h2>
+
+    <a href="#" onclick="openPopup()">Ajouter une IP a blacklister sur le Routeur</a>
+
+    <script>
+        function openPopup() {
+            // Ouvrir la popup avec le formulaire
+            window.open('/blacklist_form', 'popup', 'width=300,height=300');
+        }
+    </script>
+    <h2>les IP actuellement bloquées sur le routeur</h2>
+
+    {% for ip_blacklist in blacklist %}
+    <div>
+        <p style="font-size:14px;width:50px;">{{ip_blacklist.ip}}</p>
+        {% if ip_blacklist.num > -1 %}
+        <form action="/delete_blacklist/{{ ip_blacklist.num }}" method="POST" style="display:inline;" 
+                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimmer l\' : {{ip_blacklist.ip}} ip de la blacklist ?');">
+            <button type="submit" style="color:red;">✕ Supprimer</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Firewall</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>my_firewall</h1>
+    
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>interfaces</th>
+            <th>rules_to_internes</th>
+            <th>Blacklist</th>
+            <th>rules_to_wan</th>
+            <th>regle_de_routage</th>
+        </tr>
+        <tr>
+            <td><a href="/interfaces">Interfaces</a></td>
+            <td><a href="/rule_to_intern">Rules d'accès au routeur</a></td>
+            <td><a href="/blacklist">Blacklist</a></td>
+            <td><a href="/rules_to_wan">Rule pour l'accès à Internet</a></td>
+            <td><a href="/rules_to_routing">Routing LAN</a></td>
+        </tr>
+    </table>
+
+    <form action="/init_firewall" method="GET" style="display:inline;" onsubmit="return confirm('Initialiser le par feu');">
+    <button type="submit" style="color:blue;">Initialiser le par feu</button>
+    </form>
+
+
+
+</body>
+</html>

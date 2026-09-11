@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rules</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>my_firewall &gt; Rules to WAN</h1>
+     
+    
+    <a href="/">← Retour à l'accueil</a>
+    <br><br>
+    
+
+<h2>Regle pour aller au NAT pour accèder à internet</h2>
+
+<table border="1" cellpadding="5">
+            <tr>
+                <th>Handle</th>
+                <th>IP source</th>
+
+                <th>Action</th>
+            </tr>
+            {% for rules in to_wan %}    
+            <tr>
+                <td>{{ rules.handle }}</td>
+                <td>{{ rules.ip_source or 'all' }}</td>
+                   <td>
+            <form action="/delete_wan_rule/{{ rules.handle }}" method="POST" style="display:inline;" 
+                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'accès Internet de la regle : {{ rules.handle }} ?\n\navec IP: {{ rules.ip_source }}');">
+                <button type="submit" style="color:red;">✕ Supprimer</button>
+            </form>
+            </td>
+             </tr>
+            {%endfor%}
+            
+   
+    </table>
+    <br><br>
+    
+    <a href="#" onclick="openPopup()">Ajouter une regle de routage pour accèder à l'internet</a>
+
+    <script>
+        function openPopup() {
+            // Ouvrir la popup avec le formulaire
+            window.open('/to_wan_form', 'popup', 'width=300,height=300');
+        }
+    </script>
+</table>
+
+
+
+</body>
+</html>

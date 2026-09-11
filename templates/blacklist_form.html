@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter une IP en blacklist</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Ajouter une IP en blacklist, elle sera bloqué au niveau du routeur en PREROUTING</h2>
+    <form action="/add_ip_to_blacklist" method="POST">
+        <label>IP à blacklister : 
+            <input type="text" name="ip" pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}?(/[0-9]{1-2})$" title="Format IP valide comme 127.0.0.1 ou 192.168.1.1">
+        </label>
+        <br><br>
+        <button type="submit">Ajouter</button>
+        <button type="button" onclick="window.close()">Fermer</button>
+    </form>
+</body>
+</html>

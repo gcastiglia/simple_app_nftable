@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rules</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>my_firewall &gt; Rules d'accès au routeur</h1>
+     
+    
+    <a href="/">← Retour à l'accueil</a>
+    <br><br>
+    
+
+    <h2>Meta rule</h2>
+
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Handle</th>
+                <th>Rules</th>
+            </tr>
+            {% for rules in rule_to_intern %}
+            {% if rules.type == "meta" %}    
+            <tr>
+                <td>{{ rules.handle }}</td>
+                <td>{{ rules.match }}</td>
+            </tr>
+            {% endif %}
+            {%endfor%}
+    </table>
+    <h2>Connect track</h2>
+
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Handle</th>
+                <th>Rules</th>
+            </tr>
+            {% for rules in rule_to_intern %}
+            {% if rules.type == "ct" %}    
+            <tr>
+                <td>{{ rules.handle }}</td>
+                <td>{{ rules.match }}</td>
+            </tr>
+            {% endif %}
+            {%endfor%}
+   
+    </table>
+
+<h2>Regle spécifique d'accès au Firewall</h2>
+
+<table border="1" cellpadding="5">
+            <tr>
+                <th>Handle</th>
+                <th>IP source</th>
+                <th>Protocole</th>
+                <th>ports</th>
+                <th>Action</th>
+            </tr>
+            {% for rules in rule_to_intern %}
+            {% if rules.type == "payload" %}    
+            <tr>
+                <td>{{ rules.handle }}</td>
+                <td>{{ rules.ip_source or 'all' }}</td>
+                <td>{{ rules.protocol }}</td>
+                <td>{{ rules.port }}</td>
+                   <td>
+            <form action="/delete_input_rule/{{ rules.handle }}" method="POST" style="display:inline;" 
+                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer la règle {{ rules.handle }} ?\n\nIP: {{ rules.ip_source }}\nProtocole: {{ rules.protocol }}\nPort: {{ rules.port }}');">
+                <button type="submit" style="color:red;">✕ Supprimer</button>
+            </form>
+            </td>
+             </tr>
+            {% endif %}
+            {%endfor%}
+            
+   
+    </table>
+    <br><br>
+    
+    <a href="#" onclick="openPopup()">Ajouter une regle_de_routage pour accèder au routeur</a>
+
+    <script>
+        function openPopup() {
+            // Ouvrir la popup avec le formulaire
+            window.open('/add_interface_form', 'popup', 'width=300,height=300');
+        }
+    </script>
+</table>
+
+
+
+
+
+</body>
+</html>
